@@ -37,8 +37,9 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public Product getProductById(@PathVariable int id) {
-        return productService.getProductById(id);
+    public ResponseEntity<Object> getProductById(@PathVariable int id) {
+
+        return ResponseHandler.apiResponse("Successfully get the data!", HttpStatus.OK, productService.getProductById(id));
     }
 
 
