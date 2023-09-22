@@ -2,6 +2,9 @@ package com.mihab.sbmysqlcrud.controller;
 
 import com.mihab.sbmysqlcrud.entity.Product;
 import com.mihab.sbmysqlcrud.service.ProductService;
+import com.mihab.sbmysqlcrud.util.ResponseHandler;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +13,7 @@ import java.util.List;
 @RequestMapping(value = "/api/v1")
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -27,8 +30,10 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> getProducts() {
-        return productService.getProducts();
+    public ResponseEntity<Object> getProducts() {
+
+        return ResponseHandler.apiResponse("Successfully get the data!", HttpStatus.OK, productService.getProducts());
+
     }
 
     @GetMapping("/product/{id}")
